@@ -32,11 +32,11 @@ public class UserController {
     // login
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
-        try {
-            boolean success = userService.login(user.getUsername(), user.getPassword());
-            if(success)
+        boolean success = userService.login(user.getUsername(), user.getPassword());
+        if (success) {
+            return ResponseEntity.ok("Login Successful");
+        } else {
+            return ResponseEntity.status(401).body("Invalid username or password");
         }
-
     }
-
 }
