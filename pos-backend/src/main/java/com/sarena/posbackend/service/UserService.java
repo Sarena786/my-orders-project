@@ -19,8 +19,20 @@ public class UserService {
         if (userRepository.findByUsername(username).isPresent()) {
             throw new RuntimeException("Username already exists");
         }
+        // hash password
+        String hashedPassword = passwordEncoder.encode(rawPass);
+        User user = new User(username, hashedPassword);
+        return userRepository.save(user);
     }
 
+    public boolean login(String username, String rawPass) {
+        Optional<User> userOpt = userRepository.findByUsername(username);
+        if(userOpt.isEmpty()) {
+            return false;
+        }
+        User user = userOpt.get();
+        return passwordEncoder.matches(rawPass, user.getPassword());
+    }
     public User save(User user) {
         return userRepository.save(user);
     }
