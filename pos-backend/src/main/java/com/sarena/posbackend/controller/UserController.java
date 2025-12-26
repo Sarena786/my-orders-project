@@ -4,10 +4,10 @@ import com.sarena.posbackend.entity.User;
 import com.sarena.posbackend.security.JwtUtil;
 import com.sarena.posbackend.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/users")
@@ -42,4 +42,15 @@ public class UserController {
             return ResponseEntity.status(401).body("Invalid username or password");
         }
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> me() {
+        String username = (String)
+                Objects.requireNonNull(SecurityContextHolder.getContext()
+                                .getAuthentication())
+                        .getPrincipal();
+
+        return ResponseEntity.ok(username);
+    }
+
 }
