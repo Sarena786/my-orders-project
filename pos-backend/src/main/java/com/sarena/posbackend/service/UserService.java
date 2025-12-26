@@ -3,9 +3,10 @@ package com.sarena.posbackend.service;
 import com.sarena.posbackend.entity.User;
 import com.sarena.posbackend.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+@Service
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
