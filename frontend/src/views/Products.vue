@@ -42,6 +42,13 @@
   </div>
 </template>
 
+<script>
+
+
+
+</script>
+
+
 <style scoped>
 .products-page {
   min-height: 100vh;
