@@ -4,24 +4,46 @@
       <h2>เพิ่มสินค้า</h2>
 
       <input v-model="form.name" placeholder="ชื่อสินค้า" />
-      <input type="number" v-model="form.pricePerKg" placeholder="ราคา/กิโลกรัม" />
-      <input type="number" v-model="form.quantity" placeholder="จำนวน (กก.)" />
+
+      <input
+          type="number"
+          v-model="form.pricePerKg"
+          placeholder="ราคา/กิโลกรัม"
+      />
+
+      <input
+          type="number"
+          v-model="form.quantity"
+          placeholder="จำนวน (กก.)"
+      />
+
       <input v-model="form.note" placeholder="หมายเหตุ" />
-      <input v-model="form.imageUrl" placeholder="Image URL" />
+
+      <!-- IMAGE UPLOAD -->
+      <input
+          type="file"
+          accept="image/*"
+          @change="onFileChange"
+      />
 
       <div class="actions">
-        <button class="cancel" @click="$emit('close')">ยกเลิก</button>
-        <button class="save" @click="submit">บันทึก</button>
+        <button class="cancel" @click="$emit('close')">
+          ยกเลิก
+        </button>
+        <button class="save" @click="submit">
+          บันทึก
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { addProduct } from "../services/product.js";
+import { addProduct } from "../services/product";
 
 export default {
   emits: ["close", "saved"],
+
   data() {
     return {
       form: {
@@ -29,15 +51,21 @@ export default {
         pricePerKg: "",
         quantity: "",
         note: "",
-        imageUrl: ""
+        image: null   // IMPORTANT: File object
       }
     };
   },
+
   methods: {
+    onFileChange(e) {
+      this.form.image = e.target.files[0];
+    },
+
     async submit() {
       await addProduct(this.form);
-      this.$emit("saved");   // tell parent to refresh list
-      this.$emit("close");   // close modal
+
+      this.$emit("saved"); // refresh product list
+      this.$emit("close"); // close modal
     }
   }
 };
@@ -47,7 +75,7 @@ export default {
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,8 +85,8 @@ export default {
 .modal {
   background: white;
   padding: 30px;
-  width: 320px;
-  border-radius: 20px;
+  width: 340px;
+  border-radius: 24px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -81,6 +109,7 @@ export default {
   border: none;
   padding: 8px 16px;
   border-radius: 12px;
+  cursor: pointer;
 }
 
 .save {
@@ -89,5 +118,6 @@ export default {
   border: none;
   padding: 8px 16px;
   border-radius: 12px;
+  cursor: pointer;
 }
 </style>
