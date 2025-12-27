@@ -10,8 +10,16 @@ export function getProducts() {
     return API.get("");
 }
 
-export function addProduct(data) {
-    return API.post("", data);
+export function addProduct(form) {
+    const formData = new FormData();
+
+    formData.append("name", form.name);
+    formData.append("pricePerKg", form.pricePerKg);
+    formData.append("quantity", form.quantity);
+    formData.append("note", form.note);
+    formData.append("image", form.image); // File object
+
+    return API.post("", formData);
 }
 
 export function updateProduct(id, data) {
