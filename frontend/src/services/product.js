@@ -1,10 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://localhost:8080/api/products",
-    headers: {
-        "Content-Type": "application/json"
-    }
+    baseURL: "http://localhost:8080/api/products"
 });
 
 // JWT is already attached by interceptor globally
