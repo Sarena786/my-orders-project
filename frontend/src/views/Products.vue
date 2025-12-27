@@ -51,7 +51,7 @@
 
 
 <script>
-import AddProductModal from "../views/AddProductModal.vue";
+import AddProductModal from "../components/AddProductModal.vue";
 import { getProducts } from "../services/product";
 
 export default {
@@ -78,6 +78,10 @@ export default {
     },
     goHome() {
       this.$router.push("/home");
+    },
+    logout() {
+      localStorage.removeItem("token");
+      this.$router.push("/login");
     }
   }
 };
