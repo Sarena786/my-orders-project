@@ -50,5 +50,13 @@ public class Product {
 
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
+    @Transient
+    public BigDecimal getTotalPrice() {
+        if (pricePerKg == null || quantity == null) {
+            return BigDecimal.ZERO;
+        }
+        return pricePerKg.multiply(quantity);
+    }
 }
 
