@@ -26,7 +26,7 @@ export default {
 .home {
   height: 100vh;
   width: 100vw;
-  background-image: url("../assets/bg2.jpg");
+  background-image: url("../assets/bg5.jpg");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -34,20 +34,20 @@ export default {
 
 .nav {
   position: absolute;
-  top: 40px;
-  left: 70%;
-  transform: translateX(-60%);
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   gap: 80px;
 }
 
 .nav-btn {
-  padding: 10px 40px;
+  padding: 20px 40px;
   border-radius: 999px;
   border: none;
   background: rgba(208, 140, 135, 0.85);
   color: black;
-  font-weight: 600;
+  font-weight: 800;
   cursor: pointer;
   transition: all 0.2s ease;
 }

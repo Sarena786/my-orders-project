@@ -47,7 +47,7 @@ export default {
 /* full screen background */
 .page {
   height: 100vh;
-  background-image: url("../assets/bg2.jpg");
+  background-image: url("../assets/bg5.jpg");
   background-size: cover;
   background-position: center;
   display: flex;
