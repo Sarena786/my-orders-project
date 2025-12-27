@@ -2,7 +2,7 @@
   <div class="home">
     <nav class="nav">
       <button class="nav-btn active">HOME</button>
-      <button class="nav-btn">PRODUCTS</button>
+      <button class="nav-btn" @click="goProduct">PRODUCTS</button>
       <button class="nav-btn">ORDER</button>
       <button class="nav-btn logout" @click="logout">
         LOGOUT
@@ -17,6 +17,9 @@ export default {
     logout() {
       localStorage.removeItem("token");
       this.$router.push("/login");
+    },
+    goProduct() {
+      this.$router.push("/product");
     }
   }
 };

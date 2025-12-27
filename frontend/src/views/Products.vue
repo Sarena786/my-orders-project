@@ -2,7 +2,7 @@
   <div class="products-page">
     <!-- NAV BAR -->
     <nav class="nav">
-      <button class="nav-btn">HOME</button>
+      <button class="nav-btn" @click="goHome">HOME</button>
       <button class="nav-btn active">PRODUCT</button>
       <button class="nav-btn">ORDER</button>
       <button class="nav-btn logout" @click="logout">LOGOUT</button>
@@ -75,6 +75,9 @@ export default {
     async loadProducts() {
       const res = await getProducts();
       this.products = res.data;
+    },
+    goHome() {
+      this.$router.push("/home");
     }
   }
 };
