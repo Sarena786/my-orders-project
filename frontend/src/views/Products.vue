@@ -30,11 +30,14 @@
       <!-- PRODUCT LIST -->
       <div class="list">
         <div class="product-card" v-for="p in filteredProducts" :key="p.id">
-          <img :src="p.image" class="product-img" />
+          <img
+              :src="`http://localhost:8080${p.imageUrl}`"
+              class="product-img"
+           alt=""/>
 
           <div class="info">
             <p>รายการ : {{ p.name }}</p>
-            <p>ราคา/กิโลกรัม : {{ p.price }} บาท</p>
+            <p>ราคา/กิโลกรัม : {{ p.pricePerKg }} บาท</p>
             <p>จำนวน : {{ p.quantity }} กก.</p>
             <p>หมายเหตุ : {{ p.note }}</p>
           </div>
@@ -70,7 +73,13 @@ export default {
   async mounted() {
     await this.loadProducts();
   },
-
+  computed: {
+    filteredProducts() {
+      return this.products.filter(p =>
+          p.name.toLowerCase().includes(this.search.toLowerCase())
+      );
+    }
+  },
   methods: {
     async loadProducts() {
       const res = await getProducts();
