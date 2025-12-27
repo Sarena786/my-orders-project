@@ -17,7 +17,14 @@
             placeholder="ค้นหา"
             v-model="search"
         />
-        <button class="add-btn">เพิ่มสินค้า</button>
+        <button class="add-btn" @click="showAddModal = true">
+          เพิ่มสินค้า
+        </button>
+        <AddProductModal
+            v-if="showAddModal"
+            @close="showAddModal = false"
+            @saved="loadProducts"
+        />
       </div>
 
       <!-- PRODUCT LIST -->
@@ -42,12 +49,36 @@
   </div>
 </template>
 
+
 <script>
+import AddProductModal from "../views/AddProductModal.vue";
+import { getProducts } from "../services/product";
 
+export default {
+  components: {
+    AddProductModal
+  },
 
+  data() {
+    return {
+      products: [],
+      search: "",
+      showAddModal: false
+    };
+  },
 
+  async mounted() {
+    await this.loadProducts();
+  },
+
+  methods: {
+    async loadProducts() {
+      const res = await getProducts();
+      this.products = res.data;
+    }
+  }
+};
 </script>
-
 
 <style scoped>
 .products-page {

@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { addProduct } from "../services/product";
+import { addProduct } from "../services/product.js";
 
 export default {
   emits: ["close", "saved"],
