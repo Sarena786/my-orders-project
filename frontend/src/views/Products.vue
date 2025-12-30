@@ -57,7 +57,7 @@
 
 <script>
 import AddProductModal from "../components/AddProductModal.vue";
-import { getProducts } from "../services/product";
+import {deleteProduct, getProducts} from "../services/product";
 
 export default {
   components: {
@@ -96,6 +96,11 @@ export default {
       // open edit modal
       this.selectedProduct = { ...product };
       this.showEditModal = true;
+    },
+    async deleteProduct(id) {
+      if (!confirm("คุณต้องการลบสินค้านี้ใช่ไหม?")) return;
+      await deleteProduct(id);   // API call
+      await this.loadProducts(); // refresh list
     },
     logout() {
       localStorage.removeItem("token");
