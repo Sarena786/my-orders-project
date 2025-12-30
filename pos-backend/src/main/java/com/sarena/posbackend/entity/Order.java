@@ -1,10 +1,7 @@
 package com.sarena.posbackend.entity;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.ArrayList;
 
 @Entity
 @Table(name = "orders")
@@ -17,21 +14,25 @@ public class Order {
     @Column(name = "order_name", nullable = false)
     private String orderName;
 
+    @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(nullable = false)
-    private boolean hasUnpaidBalance;
+    // ===== Getters & Setters =====
 
-    @Enumerated(EnumType.STRING)
-    private OrderStatus status = OrderStatus.DRAFT;
+    public Long getId() {
+        return id;
+    }
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> items = new ArrayList<>();
+    public String getOrderName() {
+        return orderName;
+    }
 
-    @Transient
-    public BigDecimal getTotalPrice() {
-        return items.stream()
-                .map(OrderItem::getTotalPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    public void setOrderName(String orderName) {
+        this.orderName = orderName;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 }
+
