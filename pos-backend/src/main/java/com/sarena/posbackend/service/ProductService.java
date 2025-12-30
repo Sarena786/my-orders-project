@@ -31,7 +31,6 @@ public class ProductService {
         product.setPricePerKg(updated.getPricePerKg());
         product.setQuantity(updated.getQuantity());
         product.setNote(updated.getNote());
-        product.setImageUrl(updated.getImageUrl());
 
         return productRepository.save(product);
     }
