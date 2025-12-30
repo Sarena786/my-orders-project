@@ -34,6 +34,7 @@
             <p>รายการ : {{ p.name }}</p>
             <p>ราคา/กิโลกรัม : {{ p.pricePerKg }} บาท</p>
             <p>จำนวน : {{ p.quantity }} กก.</p>
+            <p>ราคารวม : {{ Number(p.totalPrice).toFixed(2) }} บาท</p>
             <p>หมายเหตุ : {{ p.note }}</p>
           </div>
 
