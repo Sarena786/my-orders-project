@@ -30,11 +30,31 @@
 import { login } from "../services/auth.js";
 
 export default {
+  data() {
+    return {
+      username: "",
+      password: "",
+      error: "",
+      success: ""
+    };
+  },
   methods: {
     async submit() {
-      const res = await login(this.username, this.password);
-      localStorage.setItem("token", res.data);
-      this.$router.push("/home");
+      this.error = "";
+      this.success = "";
+      try {
+        const res = await login(this.username, this.password);
+        localStorage.setItem("token", res.data);
+        this.success = "Login successful!";
+        this.$router.push("/home");
+      } catch (err) {
+        // ❌ error
+        if (err.response && err.response.status === 401) {
+          this.error = "Login unsuccessful: invalid username or password";
+        } else {
+          this.error = "Server error. Please try again.";
+        }
+      }
     },
     goRegister() {
       this.$router.push("/register");
