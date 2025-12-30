@@ -32,10 +32,18 @@
 </template>
 
 <script>
-import { addProduct } from "../services/product";
+import { addProduct, updateProduct } from "../services/product";
 
 export default {
   emits: ["close", "saved"],
+
+  props: {
+    product: Object,
+    mode: {
+      type: String,
+      default: "add"
+    }
+  },
 
   data() {
     return {
@@ -43,22 +51,37 @@ export default {
         name: "",
         pricePerKg: "",
         quantity: "",
-        note: "",
-        image: null   // IMPORTANT: File object
+        note: ""
       }
     };
   },
 
+  mounted() {
+    if (this.mode === "edit" && this.product) {
+      this.form = {
+        name: this.product.name,
+        pricePerKg: this.product.pricePerKg,
+        quantity: this.product.quantity,
+        note: this.product.note
+      };
+    }
+  },
+
   methods: {
     async submit() {
-      await addProduct(this.form);
+      if (this.mode === "edit") {
+        await updateProduct(this.product.id, this.form);
+      } else {
+        await addProduct(this.form);
+      }
 
-      this.$emit("saved"); // refresh product list
-      this.$emit("close"); // close modal
+      this.$emit("saved");
+      this.$emit("close");
     }
   }
 };
 </script>
+
 
 <style scoped>
 .overlay {

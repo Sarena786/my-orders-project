@@ -14,9 +14,9 @@ export function addProduct(form) {
 }
 
 export function updateProduct(id, data) {
-    return API.put(`/${id}`, data);
+    return API.put(`/products/${id}`, data);
 }
 
 export function deleteProduct(id) {
-    return API.delete(`/${id}`);
+    return API.delete(`/products/${id}`);
 }

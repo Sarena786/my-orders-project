@@ -38,11 +38,18 @@
           </div>
 
           <div class="actions">
-            <span class="edit">แก้ไข</span>
-            <span class="delete">ลบ</span>
+            <span class="edit" @click="editProduct(p)">แก้ไข</span>
+            <span class="delete" @click="deleteProduct(p.id)">ลบ</span>
           </div>
         </div>
       </div>
+      <AddProductModal
+          v-if="showEditModal"
+          :product="selectedProduct"
+          mode="edit"
+          @close="showEditModal = false"
+          @saved="loadProducts"
+      />
     </div>
   </div>
 </template>
@@ -61,7 +68,9 @@ export default {
     return {
       products: [],
       search: "",
-      showAddModal: false
+      showAddModal: false,
+      showEditModal: false,
+      selectedProduct: null
     };
   },
 
@@ -82,6 +91,11 @@ export default {
     },
     goHome() {
       this.$router.push("/home");
+    },
+    async editProduct(product) {
+      // open edit modal
+      this.selectedProduct = { ...product };
+      this.showEditModal = true;
     },
     logout() {
       localStorage.removeItem("token");
