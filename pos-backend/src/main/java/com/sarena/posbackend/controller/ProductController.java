@@ -2,9 +2,12 @@ package com.sarena.posbackend.controller;
 
 import com.sarena.posbackend.entity.Product;
 import com.sarena.posbackend.service.ProductService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
@@ -28,37 +31,22 @@ public class ProductController {
         return productService.findAll();
     }
 
-    // CREATE product with image upload
-    @PostMapping(consumes = "multipart/form-data")
+    @PostMapping
     public Product create(
-            @RequestParam("name") String name,
-            @RequestParam("pricePerKg") BigDecimal pricePerKg,
-            @RequestParam("quantity") BigDecimal quantity,
-            @RequestParam(value = "note", required = false) String note,
-            @RequestParam("image") MultipartFile image
-    ) throws IOException {
+            @RequestParam String name,
+            @RequestParam Double pricePerKg,
+            @RequestParam Double quantity,
+            @RequestParam(required = false) String note
+    ) {
 
-        // 1️⃣ Create upload directory if not exists
-        Path uploadDir = Paths.get("uploads/products");
-        Files.createDirectories(uploadDir);
+        // 5️⃣ Save DB record
+        Product p = new Product();
+        p.setName(name);
+        p.setPricePerKg(BigDecimal.valueOf(pricePerKg));
+        p.setQuantity(BigDecimal.valueOf(quantity));
+        p.setNote(note);
 
-        // 2️⃣ Generate unique filename
-        String filename = UUID.randomUUID() + "_" + image.getOriginalFilename();
-
-        // 3️⃣ Save image to disk
-        Path filePath = uploadDir.resolve(filename);
-        image.transferTo(filePath.toFile());
-
-        // 4️⃣ Save product with image URL
-        Product product = new Product(
-                name,
-                pricePerKg,
-                quantity,
-                note,
-                "/uploads/products/" + filename
-        );
-
-        return productService.save(product);
+        return productService.save(p);
     }
 
     @PutMapping("/{id}")
