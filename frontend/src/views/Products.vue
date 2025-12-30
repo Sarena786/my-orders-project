@@ -31,10 +31,10 @@
       <div class="list">
         <div class="product-card" v-for="p in filteredProducts" :key="p.id">
           <img
-              :src="`http://localhost:8080${p.imageUrl}`"
+              :src="`http://localhost:8080${p.image_url}`"
               class="product-img"
-           alt=""/>
-
+              alt=""
+          />
           <div class="info">
             <p>รายการ : {{ p.name }}</p>
             <p>ราคา/กิโลกรัม : {{ p.pricePerKg }} บาท</p>

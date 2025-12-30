@@ -16,8 +16,7 @@ export function addProduct(form) {
     formData.append("name", form.name);
     formData.append("pricePerKg", form.pricePerKg);
     formData.append("quantity", form.quantity);
-    formData.append("note", form.note);
-    formData.append("image", form.image); // File object
+    formData.append("note", form.note || "");
 
     return API.post("", formData);
 }

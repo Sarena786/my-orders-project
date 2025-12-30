@@ -19,13 +19,6 @@
 
       <input v-model="form.note" placeholder="หมายเหตุ" />
 
-      <!-- IMAGE UPLOAD -->
-      <input
-          type="file"
-          accept="image/*"
-          @change="onFileChange"
-      />
-
       <div class="actions">
         <button class="cancel" @click="$emit('close')">
           ยกเลิก
@@ -57,10 +50,6 @@ export default {
   },
 
   methods: {
-    onFileChange(e) {
-      this.form.image = e.target.files[0];
-    },
-
     async submit() {
       await addProduct(this.form);
 
