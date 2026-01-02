@@ -17,7 +17,6 @@ public class OrderItems {
     private Order order;
 
     // from input
-    @Column(nullable = false)
     private LocalDateTime date;
 
     @Column(nullable = false)
