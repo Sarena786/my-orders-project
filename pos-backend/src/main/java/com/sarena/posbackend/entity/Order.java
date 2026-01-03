@@ -1,8 +1,12 @@
 package com.sarena.posbackend.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
+@Getter
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -11,6 +15,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @Column(name = "order_name", nullable = false)
     private String orderName;
 
@@ -19,20 +24,5 @@ public class Order {
 
     // ===== Getters & Setters =====
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getOrderName() {
-        return orderName;
-    }
-
-    public void setOrderName(String orderName) {
-        this.orderName = orderName;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
 }
 
